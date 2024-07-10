@@ -16,6 +16,7 @@ def test_registry_email():
 		"id": str(uuid.uuid4()),
 		"trip_id": trip_id,
 		"link": "aaaaaa.com",
+		"Title": "Hotel",
 	}
 
 	links_repository.registry_link(links_infos=link_info)
@@ -27,4 +28,6 @@ def test_find_links_from_trip():
 	links_repository = LinksRepository(conn)
 
 	links = links_repository.find_links_from_trip(trip_id)
-	print(links)
+
+	assert isinstance(links, list)
+	assert isinstance(links[0], tuple)

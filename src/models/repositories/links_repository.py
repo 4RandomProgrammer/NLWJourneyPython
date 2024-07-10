@@ -10,8 +10,8 @@ class LinksRepository:
 		cursor = self.__conn.cursor()
 		query = """
                 INSERT INTO "NLWJourney".links
-                    (id, trip_id, link)
-                VALUES ('%(id)s', '%(trip_id)s','%(link)s')
+                    (id, trip_id, link, title)
+                VALUES ('%(id)s', '%(trip_id)s','%(link)s', '%(title)s')
         """ % (
 			links_infos
 		)
