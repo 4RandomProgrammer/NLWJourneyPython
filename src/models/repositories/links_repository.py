@@ -23,6 +23,6 @@ class LinksRepository:
 
 		query = f"""SELECT * FROM "NLWJourney".links WHERE trip_id = '{trip_id}'"""
 		cursor.execute(query)
-		emails = cursor.fetchall()
+		links = cursor.fetchall()
 
-		return emails
+		return links
