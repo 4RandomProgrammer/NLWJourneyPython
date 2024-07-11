@@ -3,7 +3,7 @@ from typing import Dict, Tuple
 from src.models.repositories.activities_repository import ActivitiesRepository
 import uuid
 
-class ParticipantFinder:
+class ActivityFinder:
     def __init__(self, activities_repository: ActivitiesRepository) -> None:
         self.__activities_repository = activities_repository
     
