@@ -9,7 +9,7 @@ class LinkCreator:
 
 	def create(self, body: dict, trip_id: str) -> Dict:
 		try:
-
+			
 			link_id = str(uuid.uuid4())
 			link_infos = {
 				"link": body["url"],
@@ -17,6 +17,7 @@ class LinkCreator:
 				"id": link_id,
 				"trip_id": trip_id,
 			}
+			
 			self.__link_repository.registry_link(link_infos)
 
 			return {"body": {"linkId": link_id}, "status_code": 201}
