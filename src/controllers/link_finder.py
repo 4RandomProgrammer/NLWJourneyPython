@@ -7,7 +7,7 @@ class LinkFinder:
     def __init__(self, link_repository: LinksRepository) -> None:
         self.__link_repository = link_repository
     
-    def find(self, trip_id) -> Tuple:
+    def find(self, trip_id: str) -> Tuple:
         try:
             links = self.__link_repository.find_links_from_trip(trip_id)
             formatted_links = []
