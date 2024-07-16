@@ -59,7 +59,7 @@ def create_trip_link(tripId):
 	conn = db_connection_handler.get_connection()
 	link_repository = LinksRepository(conn)
 	controller = LinkCreator(link_repository)
-	
+
 	response = controller.create(request.json, tripId)
 
 	return jsonify(response["body"]), response["status_code"]
@@ -75,6 +75,7 @@ def find_trip_link(tripId):
 
 	return jsonify(response["body"]), response["status_code"]
 
+
 @trip_routes_bp.route("/trips/<tripId>/invites", methods=["POST"])
 def create_participant(tripId):
 	conn = db_connection_handler.get_connection()
@@ -82,19 +83,21 @@ def create_participant(tripId):
 	emails_repository = EmailsToInviteRepository(conn)
 	controller = ParticipantsCreator(participant_repository, emails_repository)
 
-	response = controller.create(request.json,tripId)
+	response = controller.create(request.json, tripId)
 
 	return jsonify(response["body"]), response["status_code"]
+
 
 @trip_routes_bp.route("/trips/<tripId>/activities", methods=["POST"])
 def create_activity(tripId):
 	conn = db_connection_handler.get_connection()
 	activity_repository = ActivitiesRepository(conn)
 	controller = ActivityCreator(activity_repository)
-	
+
 	response = controller.create(request.json, tripId)
 
 	return jsonify(response["body"]), response["status_code"]
+
 
 @trip_routes_bp.route("/trips/<tripId>/participants", methods=["GET"])
 def find_trip_participants(tripId):
@@ -120,7 +123,9 @@ def find_trip_activities(tripId):
 	return jsonify(response["body"]), response["status_code"]
 
 
-@trip_routes_bp.route("/participants/<participantId>/participant_confirm", methods=["GET"])
+@trip_routes_bp.route(
+	"/participants/<participantId>/participant_confirm", methods=["GET"]
+)
 def confirm_participant(participantId):
 	conn = db_connection_handler.get_connection()
 	trip_repository = ParticipantsRepository(conn)
