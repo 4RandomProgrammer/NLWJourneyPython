@@ -8,13 +8,14 @@ class ParticipantsRepository:
 
     def registry_participants(self, participant_info: Dict) -> None:
         cursor = self.__conn.cursor()
-        query = """
+        query = '''
                 INSERT INTO "NLWJourney".participants
-                    (id, trip_id, emails_to_invite_id, is_confirmed)
+                    (id, trip_id, emails_to_invite_id, name)
                 VALUES ('%(id)s', '%(trip_id)s','%(emails_to_invite_id)s', '%(name)s')
-        """ % (
+        ''' % (
             participant_info
         )
+        
         cursor.execute(query)
         self.__conn.commit()
 
