@@ -12,7 +12,7 @@ conn.autocommit = True
 
 cursor = conn.cursor()
 
-CREATE_SCHEMA = 'CREATE SCHEMA IF NOT EXISTS "NLWJourney2";'
+CREATE_SCHEMA = 'CREATE SCHEMA IF NOT EXISTS "NLWJourney";'
 
 # Open and read the file as a single buffer
 fd = open('schema.sql', 'r')
