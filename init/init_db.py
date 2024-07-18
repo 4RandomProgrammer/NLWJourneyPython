@@ -22,8 +22,8 @@ fd.close()
 
 sqlCommands = sqlFile.split(';')
 
-cursor.execute(MONTH_CONFIG)
 cursor.execute(CREATE_SCHEMA)
+cursor.execute(MONTH_CONFIG)
 
 # Execute every command from the input file
 for command in sqlCommands:
