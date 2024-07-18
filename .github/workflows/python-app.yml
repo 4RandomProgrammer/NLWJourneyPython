@@ -58,7 +58,7 @@ jobs:
       run: |
         psql -h localhost -p 5432 -U postgres -c "show datestyle;"
       env:
-        POSTGRES_PASSWORD: root
+        PGPASSWORD: root
 
     - name: Initialize DB
       run: |
