@@ -48,7 +48,7 @@ class TestAppRoutes:
         assert trip['ends_at'] == 'Wed, 17 Jul 2024 00:00:00 GMT'
 
     @pytest.mark.skip
-    def test_create_link(self, client):
+    def test_create_link(self, client, trip_to_create_info):
         create_trip_response = client.post("/trips", json=trip_to_create_info)
 
         assert create_trip_response.status_code == 201
@@ -66,7 +66,7 @@ class TestAppRoutes:
         assert trip['starts_at'] == 'Fri, 12 Jul 2024 00:00:00 GMT'
 
     @pytest.mark.skip
-    def test_create_activity(self, client):
+    def test_create_activity(self, client, trip_to_create_info):
         create_trip_response = client.post("/trips", json=trip_to_create_info)
 
         assert create_trip_response.status_code == 201
@@ -84,7 +84,7 @@ class TestAppRoutes:
         assert trip['starts_at'] == 'Fri, 12 Jul 2024 00:00:00 GMT'
     
     @pytest.mark.skip
-    def test_create_participant(self, client):
+    def test_create_participant(self, client, trip_to_create_info):
         create_trip_response = client.post("/trips", json=trip_to_create_info)
 
         assert create_trip_response.status_code == 201
