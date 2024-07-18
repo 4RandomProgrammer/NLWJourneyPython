@@ -8,7 +8,7 @@ from src.models.settings.db_connection_handler import db_connection_handler
 db_connection_handler.connect()
 
 class TestLinkRepository:
-	def test_registry_email(self, trip_id, link_id, result_link):
+	def test_registry_link(self, trip_id, link_id, result_link):
 		conn = db_connection_handler.get_connection()
 
 		trip_repository = TripsRepository(conn)

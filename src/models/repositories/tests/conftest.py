@@ -15,6 +15,14 @@ def link_id():
     return str(uuid.uuid4())
 
 @pytest.fixture
+def participant_id():
+    return str(uuid.uuid4())
+
+@pytest.fixture
+def activity_id():
+    return str(uuid.uuid4())
+
+@pytest.fixture
 def result_trip(trip_id):
     return (
         trip_id,
@@ -45,3 +53,16 @@ def result_link(trip_id, link_id):
 @pytest.fixture
 def result_email(trip_id, email_id):
     return [(email_id, trip_id, 'olamundo@email.com')]
+
+
+@pytest.fixture
+def result_participant(participant_id):
+    return [(participant_id, 'Heraldo', None, 'heraldo@email.com')]
+
+@pytest.fixture
+def result_confirmed_participant(participant_id):
+    return [(participant_id, 'Heraldo', 1, 'heraldo@email.com')]
+
+@pytest.fixture
+def result_activity(activity_id, trip_id):
+    return [(activity_id, trip_id, 'Festa na Floresta', datetime.strptime("02-01-2024", "%d-%m-%Y") + timedelta(days=2))]
