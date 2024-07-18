@@ -13,7 +13,7 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 CREATE_SCHEMA = 'CREATE SCHEMA IF NOT EXISTS "NLWJourney";'
-MONTH_CONFIG = 'SET datestyle = dmy;'
+MONTH_CONFIG = 'SET datestyle = US, MDY;'
 
 # Open and read the file as a single buffer
 fd = open('schema.sql', 'r')
