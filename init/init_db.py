@@ -13,6 +13,7 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 CREATE_SCHEMA = 'CREATE SCHEMA IF NOT EXISTS "NLWJourney";'
+MONTH_CONFIG = 'SET datestyle = dmy;'
 
 # Open and read the file as a single buffer
 fd = open('schema.sql', 'r')
@@ -21,6 +22,7 @@ fd.close()
 
 sqlCommands = sqlFile.split(';')
 
+cursor.execute(MONTH_CONFIG)
 cursor.execute(CREATE_SCHEMA)
 
 # Execute every command from the input file
