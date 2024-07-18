@@ -22,6 +22,7 @@ jobs:
         image: postgres
 
         env:
+          POSTGRES_INITDB_ARGS: "--locale=pt_BR.UTF-8"
           POSTGRES_PASSWORD: root
           POSTGRES_USER: postgres
           POSTGRES_DB: postgres
@@ -52,22 +53,6 @@ jobs:
       run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    
-    
-  
-    - name: Set Postgres datestyle
-      run: |
-        psql -h localhost -p 5432 -U postgres -c "ALTER DATABASE postgres SET datestyle TO 'ISO, DMY';"
-      env:
-        PGPASSWORD: root
-
-    - name: Wait for Postgres to be ready
-      run: |
-        sudo service postgresql restart
-        until pg_isready -h localhost -p 5432 -U postgres; do
-          echo "Waiting for postgres..."
-          sleep 1
-        done
 
     - name: Initialize DB
       run: |
