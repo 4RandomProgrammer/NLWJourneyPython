@@ -52,6 +52,19 @@ jobs:
       run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Wait for Postgres to be ready
+      run: |
+        until pg_isready -h localhost -p 5432 -U postgres; do
+          echo "Waiting for postgres..."
+          sleep 1
+        done
+  
+    - name: Set Postgres datestyle
+      run: |
+        psql -h localhost -p 5432 -U postgres -c "ALTER DATABASE postgres SET datestyle TO 'ISO, DMY';"
+      env:
+        PGPASSWORD: root
 
     - name: Initialize DB
       run: |
