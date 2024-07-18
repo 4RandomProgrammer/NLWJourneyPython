@@ -13,7 +13,7 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 CREATE_SCHEMA = 'CREATE SCHEMA IF NOT EXISTS "NLWJourney";'
-MONTH_CONFIG = '''ALTER DATABASE postgres SET datestyle = 'ISO, MDY';'''
+MONTH_CONFIG = '''ALTER DATABASE postgres SET datestyle = "ISO, MDY";'''
 
 # Open and read the file as a single buffer
 fd = open('schema.sql', 'r')
