@@ -1,6 +1,7 @@
-from typing import Dict, Tuple
-from src.models.repositories.participants_repository import ParticipantsRepository
 import uuid
+from typing import Dict, Tuple
+
+from src.models.repositories.participants_repository import ParticipantsRepository
 
 
 class ParticipantFinder:

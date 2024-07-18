@@ -1,11 +1,15 @@
-from datetime import datetime, timedelta
-import pytest
 import uuid
-from ..links_repository import LinksRepository
-from ..trips_repository import TripsRepository
+from datetime import datetime, timedelta
+
+import pytest
+
 from src.models.settings.db_connection_handler import db_connection_handler
 
+from ..links_repository import LinksRepository
+from ..trips_repository import TripsRepository
+
 db_connection_handler.connect()
+
 
 class TestLinkRepository:
 	def test_registry_link(self, trip_id, link_id, result_link):
@@ -33,11 +37,10 @@ class TestLinkRepository:
 		trip_repository.create_trip(trips_infos=trips_infos)
 		links_repository.registry_link(links_infos=link_info)
 		links = links_repository.find_links_from_trip(trip_id)
-		
+
 		assert result_link == links
 
-
-	def test_find_links_from_trip(self,link_id, trip_id, result_link):
+	def test_find_links_from_trip(self, link_id, trip_id, result_link):
 		conn = db_connection_handler.get_connection()
 		links_repository = LinksRepository(conn)
 
@@ -62,7 +65,6 @@ class TestLinkRepository:
 		}
 
 		links_repository.registry_link(links_infos=link_info)
-
 
 		links = links_repository.find_links_from_trip(trip_id)
 

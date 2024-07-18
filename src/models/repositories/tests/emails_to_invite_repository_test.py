@@ -1,12 +1,15 @@
-import pytest
 import uuid
 from datetime import datetime, timedelta
 
+import pytest
+
 from src.models.repositories.trips_repository import TripsRepository
-from ..emails_to_invite_repository import EmailsToInviteRepository
 from src.models.settings.db_connection_handler import db_connection_handler
 
+from ..emails_to_invite_repository import EmailsToInviteRepository
+
 db_connection_handler.connect()
+
 
 class TestEmailRepository:
 	def test_registry_email(self, email_id, trip_id, result_email):
@@ -35,7 +38,6 @@ class TestEmailRepository:
 
 		assert result_email == emails
 
-
 	def test_find_emails_from_trip(self, trip_id, email_id, result_email):
 		conn = db_connection_handler.get_connection()
 		emails_to_invite_repository = EmailsToInviteRepository(conn)
@@ -60,7 +62,6 @@ class TestEmailRepository:
 		emails_to_invite_repository.registry_email(emails_infos=email_info)
 
 		emails = emails_to_invite_repository.find_emails_from_trip(trip_id)
-		
 
 		assert isinstance(emails, list)
 		assert isinstance(emails[0], tuple)

@@ -1,5 +1,6 @@
 import uuid
 from typing import Dict
+
 from src.models.repositories.emails_to_invite_repository import EmailsToInviteRepository
 from src.models.repositories.participants_repository import ParticipantsRepository
 

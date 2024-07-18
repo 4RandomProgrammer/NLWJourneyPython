@@ -1,8 +1,9 @@
-from typing import Dict
 import uuid
+from typing import Dict
+
+from src.drivers.email_sender import send_email
 from src.models.repositories.emails_to_invite_repository import EmailsToInviteRepository
 from src.models.repositories.trips_repository import TripsRepository
-from src.drivers.email_sender import send_email
 
 
 class TripCreator:
