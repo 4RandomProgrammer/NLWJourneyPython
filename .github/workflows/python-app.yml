@@ -57,6 +57,7 @@ jobs:
       run: |
         cd init
         python init_db.py
+        sudo service postgresql restart
         cd ..
 
     - name: Test with pytest
