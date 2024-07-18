@@ -27,7 +27,7 @@ class TripCreator:
 						{"email": email, "trip_id": trip_id, "id": str(uuid.uuid4())}
 					)
 
-			send_email([body["owner_email"]], f"http://localhost:3000/trips/{trip_id}/confirm")
+			# send_email([body["owner_email"]], f"http://localhost:3000/trips/{trip_id}/confirm")
 
 			return {"body": {"id": trip_id}, "status_code": 201}
 		except Exception as exception:
