@@ -1,17 +1,41 @@
 import { CircleCheck } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { api } from "../../lib/axios";
+
+interface ActivitiesData {
+  id: string;
+  title: string;
+  occurs_at: string;
+}
 
 export function Actvities() {
+  const { tripId } = useParams();
+  const [activities, setActivities] = useState<ActivitiesData[]>([]);
+
+  useEffect(() => {
+    api
+      .get(`/trips/${tripId}/activities`)
+      .then((response) => setActivities(response.data.activities));
+  }, [tripId]);
+
   return (
     <div className="space-y-8">
-      <div className="space-y-2.5">
-        <div className="flex gap-2 items-baseline">
-          <span className="text-xl text-zinc-300 font-semibold">Dia 17</span>
-          <span className="text-xs text-zinc-500">Sábado</span>
-        </div>
-        <p className="text-zinc-500 text-sm">
-          Nenhuma atividade cadastrada nessa data.
-        </p>
-      </div>
+      {activities.map((activity) => {
+        return (
+          <div key={activity.id} className="space-y-2.5">
+            <div className="flex gap-2 items-baseline">
+              <span className="text-xl text-zinc-300 font-semibold">
+                Dia 17
+              </span>
+              <span className="text-xs text-zinc-500">Sábado</span>
+            </div>
+            <p className="text-zinc-500 text-sm">
+              Nenhuma atividade cadastrada nessa data.
+            </p>
+          </div>
+        );
+      })}
 
       <div className="space-y-2.5">
         <div className="flex gap-2 items-baseline">
