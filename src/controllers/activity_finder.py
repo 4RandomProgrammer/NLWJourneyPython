@@ -1,6 +1,7 @@
-from typing import Dict, Tuple
-from src.models.repositories.activities_repository import ActivitiesRepository
 import uuid
+from typing import Dict, Tuple
+
+from src.models.repositories.activities_repository import ActivitiesRepository
 
 
 class ActivityFinder:
@@ -13,7 +14,7 @@ class ActivityFinder:
 			formatted_activities = []
 			for activity in activities:
 				formatted_activities.append(
-					{"id": activities[0], "title": activities[2], "occurs_at": activities[3]}
+					{"id": activity[0], "title": activity[2], "occurs_at": activity[3]}
 				)
 			return {"body": {"activities": formatted_activities}, "status_code": 200}
 

@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS trips (
+CREATE TABLE IF NOT EXISTS "NLWJourney".trips (
     id TEXT PRIMARY KEY,
     destination TEXT NOT NULL,
     start_date TIMESTAMP,
@@ -8,33 +8,35 @@ CREATE TABLE IF NOT EXISTS trips (
     status INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS emails_to_invite (
+CREATE TABLE IF NOT EXISTS "NLWJourney".emails_to_invite (
     id TEXT PRIMARY KEY,
-    trip_id TEXT REFERENCES trips(id),
-    email TEXT NOT NULL
+    trip_id TEXT,
+    email TEXT NOT NULL,
+    FOREIGN KEY (trip_id) REFERENCES "NLWJourney".trips(id)
 );
 
-CREATE TABLE IF NOT EXISTS links (
+CREATE TABLE IF NOT EXISTS "NLWJourney".links (
     id TEXT PRIMARY KEY,
-    trip_id TEXT REFERENCES trips(id),
-    link TEXT NOT NULL
+    trip_id TEXT,
+    link TEXT NOT NULL,
+    title TEXT NOT NULL,
+    FOREIGN KEY (trip_id) REFERENCES "NLWJourney".trips(id)
 );
 
-
-CREATE TABLE IF NOT EXISTS participants (
+CREATE TABLE IF NOT EXISTS "NLWJourney".participants (
     id TEXT PRIMARY KEY,
-    trip_id TEXT NOT NULL,
-    emails_to_invite_id TEXT NOT NULL,
+    trip_id TEXT,
+    emails_to_invite_id TEXT,
     name TEXT NOT NULL,
     is_confirmed INTEGER,
     FOREIGN KEY (trip_id) REFERENCES "NLWJourney".trips(id),
     FOREIGN KEY (emails_to_invite_id) REFERENCES "NLWJourney".emails_to_invite(id)
 );
 
-CREATE TABLE IF NOT EXISTS activities (
+CREATE TABLE IF NOT EXISTS "NLWJourney".activities (
     id TEXT PRIMARY KEY,
     trip_id TEXT,
     title TEXT NOT NULL,
     occurs_at TIMESTAMP,
     FOREIGN KEY (trip_id) REFERENCES "NLWJourney".trips(id)
-);
+)

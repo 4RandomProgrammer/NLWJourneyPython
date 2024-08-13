@@ -1,6 +1,7 @@
-from typing import Dict
-from src.models.repositories.links_repository import LinksRepository
 import uuid
+from typing import Dict
+
+from src.models.repositories.links_repository import LinksRepository
 
 
 class LinkCreator:

@@ -1,5 +1,6 @@
 import uuid
 from typing import Dict
+
 from src.models.repositories.activities_repository import ActivitiesRepository
 
 

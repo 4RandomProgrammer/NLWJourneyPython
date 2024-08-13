@@ -1,4 +1,5 @@
 from typing import Dict, List, Tuple
+
 import psycopg2
 
 
@@ -39,7 +40,7 @@ class ParticipantsRepository:
 
 		query = f"""
             UPDATE "NLWJourney".participants 
-                SET status = 1
+                SET is_confirmed = 1
             WHERE 
                 id = '{participant_id}'
         """

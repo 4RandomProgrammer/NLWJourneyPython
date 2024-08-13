@@ -1,8 +1,9 @@
-from typing import Dict
 import uuid
+from typing import Dict
+
+from src.drivers.email_sender import send_email
 from src.models.repositories.emails_to_invite_repository import EmailsToInviteRepository
 from src.models.repositories.trips_repository import TripsRepository
-from src.drivers.email_sender import send_email
 
 
 class TripCreator:
@@ -14,7 +15,6 @@ class TripCreator:
 
 	def create(self, body: dict) -> Dict:
 		try:
-
 			emails = body.get("emails_to_invite")
 
 			trip_id = str(uuid.uuid4())
@@ -28,7 +28,7 @@ class TripCreator:
 						{"email": email, "trip_id": trip_id, "id": str(uuid.uuid4())}
 					)
 
-			send_email([body["owner_email"]], f"http://localhost:3000/trips/{trip_id}/confirm")
+			# send_email([body["owner_email"]], f"http://localhost:3000/trips/{trip_id}/confirm")
 
 			return {"body": {"id": trip_id}, "status_code": 201}
 		except Exception as exception:
