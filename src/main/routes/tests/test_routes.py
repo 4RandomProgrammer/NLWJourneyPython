@@ -76,6 +76,7 @@ class TestAppRoutes:
 
 	def test_create_activity(self, client, trip_to_create_info, activity_to_create_info):
 		create_trip_response = client.post("/trips", json=trip_to_create_info)
+		date = activity_to_create_info.get("occurs_at")
 
 		assert create_trip_response.status_code == 201
 
@@ -96,8 +97,8 @@ class TestAppRoutes:
 
 		all_activities = get_activities_data.get("activities")
 
-		assert all_activities[0]["title"] == activity_to_create_info["title"]
-		assert all_activities[0]["occurs_at"] == "Sun, 14 Apr 2024 00:00:00 GMT"
+		assert all_activities[date][0]["title"] == activity_to_create_info["title"]
+		assert all_activities[date][0]["occurs_at"] == "00:00:00"
 
 	def test_create_participant(
 		self, client, trip_to_create_info, participant_to_create_info

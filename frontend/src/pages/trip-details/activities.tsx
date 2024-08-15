@@ -3,25 +3,29 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../lib/axios";
 
-interface ActivitiesData {
+interface ActivityData {
   id: string;
   title: string;
   occurs_at: string;
 }
 
+interface Activities {
+  [key: string]: ActivityData[];
+}
+
 export function Actvities() {
   const { tripId } = useParams();
-  const [activities, setActivities] = useState<ActivitiesData[]>([]);
+  const [activities, setActivities] = useState<Activities>();
 
   useEffect(() => {
     api
       .get(`/trips/${tripId}/activities`)
       .then((response) => setActivities(response.data.activities));
   }, [tripId]);
-
+  console.log(activities);
   return (
     <div className="space-y-8">
-      {activities.map((activity) => {
+      {/* {activities.map((activity) => {
         return (
           <div key={activity.id} className="space-y-2.5">
             <div className="flex gap-2 items-baseline">
@@ -35,7 +39,7 @@ export function Actvities() {
             </p>
           </div>
         );
-      })}
+      })} */}
 
       <div className="space-y-2.5">
         <div className="flex gap-2 items-baseline">

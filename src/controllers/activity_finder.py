@@ -10,13 +10,24 @@ class ActivityFinder:
 
 	def find(self, trip_id: str) -> Tuple:
 		try:
+			activity_dict = {}
 			activities = self.__activities_repository.find_activities_from_trip(trip_id)
-			formatted_activities = []
+
 			for activity in activities:
-				formatted_activities.append(
-					{"id": activity[0], "title": activity[2], "occurs_at": activity[3]}
+				date = activity[3].strftime("%Y-%m-%d")
+
+				if not activity_dict.get(date):
+					activity_dict[date] = []
+
+				activity_dict[date].append(
+					{
+						"id": activity[0],
+						"title": activity[2],
+						"occurs_at": activity[3].strftime("%H:%M:%S"),
+					}
 				)
-			return {"body": {"activities": formatted_activities}, "status_code": 200}
+
+			return {"body": {"activities": activity_dict}, "status_code": 200}
 
 		except Exception as exception:
 			return {

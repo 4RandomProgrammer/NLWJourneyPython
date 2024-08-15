@@ -23,10 +23,11 @@ trip_routes_bp = Blueprint("trip_routes", __name__)
 @trip_routes_bp.after_request
 def after_request(response):
 	header = response.headers
-	header['Access-Control-Allow-Origin'] = '*'
-	header['Access-Control-Allow-Headers']='Content-Type'
-	
+	header["Access-Control-Allow-Origin"] = "*"
+	header["Access-Control-Allow-Headers"] = "Content-Type"
+
 	return response
+
 
 @trip_routes_bp.route("/trips", methods=["POST"])
 def create_trip():
