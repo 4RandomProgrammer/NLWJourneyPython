@@ -1,5 +1,6 @@
+from typing import List, Tuple
+
 import psycopg2
-from typing import Tuple, List
 
 
 class EmailsToInviteRepository:

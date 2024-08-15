@@ -1,4 +1,5 @@
 from typing import Dict
+
 from src.models.repositories.trips_repository import TripsRepository
 
 
