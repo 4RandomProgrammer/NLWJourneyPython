@@ -12,6 +12,7 @@ class ActivityFinder:
 		try:
 			activity_dict = {}
 			activities = self.__activities_repository.find_activities_from_trip(trip_id)
+			formatted_activities = []
 
 			for activity in activities:
 				date = activity[3].strftime("%Y-%m-%d")
@@ -27,7 +28,12 @@ class ActivityFinder:
 					}
 				)
 
-			return {"body": {"activities": activity_dict}, "status_code": 200}
+			for date_key in activity_dict:
+				formatted_activities.append(
+					{"date": date_key, "activities": activity_dict[date_key]}
+				)
+
+			return {"body": {"activities": formatted_activities}, "status_code": 200}
 
 		except Exception as exception:
 			return {
