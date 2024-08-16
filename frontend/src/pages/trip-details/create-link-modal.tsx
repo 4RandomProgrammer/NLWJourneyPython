@@ -1,4 +1,4 @@
-import { Calendar, Clock, Tag, X } from "lucide-react";
+import { Link2, Tag, X } from "lucide-react";
 import { Button } from "../../components/button";
 import { FormEvent } from "react";
 import { useParams } from "react-router-dom";
@@ -19,27 +19,22 @@ export function CreateLinkModal({
     const data = new FormData(event.currentTarget);
 
     const title = data.get("title")?.toString();
-    const day = data.get("day")?.toString();
-    const occurs_at = data.get("occurs")?.toString();
-
-    if (!occurs_at) {
-      return;
-    }
-
-    if (!day) {
+    const url = data.get("url")?.toString();
+    console.log({ url: url, title: title });
+    if (!url) {
       return;
     }
 
     if (!title) {
       return;
     }
-    console.log(day + "T" + occurs_at);
-    const response = await api.post(`/trips/${tripId}/activities`, {
+
+    const response = await api.post(`/trips/${tripId}/links`, {
       title: title,
-      occurs_at: day + "T" + occurs_at,
+      url: url,
     });
 
-    closeCreateLinkModal();
+    window.document.location.reload();
   }
 
   return (
@@ -66,17 +61,17 @@ export function CreateLinkModal({
             <Tag className="text-zinc-400 size-5" />
             <input
               name="title"
-              placeholder="Qual a atividade?"
+              placeholder="Qual a Link?"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
             />
           </div>
 
           <div className="flex-1 h-14 p-4 bg-zinc-950 border border-zinc-800 rounded-lg flex gap-2">
-            <Calendar className="text-zinc-400 size-5" />
+            <Link2 className="text-zinc-400 size-5" />
             <input
-              type="date"
-              name="day"
-              placeholder="20 de Agosto"
+              type="text"
+              name="url"
+              placeholder="URL"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
             />
           </div>

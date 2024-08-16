@@ -98,7 +98,7 @@ class TestAppRoutes:
 		all_activities = get_activities_data.get("activities")
 
 		assert all_activities[0]["activities"][0]["title"] == activity_to_create_info["title"]
-		assert all_activities[0]["activities"][0]["occurs_at"] == "00:00:00"
+		assert all_activities[0]["activities"][0]["occurs_at"] == "00:00"
 
 	def test_create_participant(
 		self, client, trip_to_create_info, participant_to_create_info

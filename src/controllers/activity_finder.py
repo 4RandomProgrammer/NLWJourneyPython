@@ -24,7 +24,7 @@ class ActivityFinder:
 					{
 						"id": activity[0],
 						"title": activity[2],
-						"occurs_at": activity[3].strftime("%H:%M:%S"),
+						"occurs_at": activity[3].strftime("%H:%M"),
 					}
 				)
 

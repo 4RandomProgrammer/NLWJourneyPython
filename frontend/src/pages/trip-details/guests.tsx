@@ -20,7 +20,7 @@ export function Guests() {
   useEffect(() => {
     api
       .get(`/trips/${tripId}/participants`)
-      .then((response) => setParticipants(response.data.trip));
+      .then((response) => setParticipants(response.data.participants));
   }, [tripId]);
 
   return (

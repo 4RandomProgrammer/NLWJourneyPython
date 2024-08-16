@@ -39,7 +39,7 @@ export function CreateActivityModal({
       occurs_at: day + "T" + occurs_at,
     });
 
-    closeCreateActivityModal();
+    window.document.location.reload();
   }
 
   return (
