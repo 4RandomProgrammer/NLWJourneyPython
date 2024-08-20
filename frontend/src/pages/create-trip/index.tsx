@@ -5,8 +5,8 @@ import { ConfirmTripModal } from "./confirm-trip-modal";
 import { DestinationAndDateStep } from "./steps/destination-and-date-step";
 import { InviteGuestsStep } from "./steps/invite-guests-step";
 import { DateRange } from "react-day-picker";
-import axios from "axios";
 import { api } from "../../lib/axios";
+import { format } from "date-fns";
 
 export function CreateTripPage() {
   const navigate = useNavigate();
@@ -77,12 +77,6 @@ export function CreateTripPage() {
   async function createTrip(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    console.log(destination);
-    console.log(ownerName);
-    console.log(ownerEmail);
-    console.log(eventStartAndEndDates);
-    console.log(destination);
-
     if (!destination) {
       return;
     }
@@ -111,6 +105,15 @@ export function CreateTripPage() {
     const { id } = response.data;
     navigate(`/trips/${id}`);
   }
+
+  const displayedDate =
+    eventStartAndEndDates &&
+    eventStartAndEndDates.from &&
+    eventStartAndEndDates.to
+      ? format(eventStartAndEndDates.from, "d 'de' MMM")
+          .concat(" até ")
+          .concat(format(eventStartAndEndDates.to, "d 'de' MMM"))
+      : "Quando?";
 
   return (
     <div className="h-screen flex items-center justify-center bg-pattern bg-no-repeat bg-center">
@@ -176,6 +179,8 @@ export function CreateTripPage() {
           closeConfirmTripModal={closeConfirmTripModal}
           setOwnerName={setOwnerName}
           setOwnerEmail={setOwnerEmail}
+          destination={destination}
+          tripDate={displayedDate}
         />
       )}
     </div>
