@@ -1,6 +1,8 @@
 import { AtSign, Plus, X } from "lucide-react";
 import { FormEvent } from "react";
 import { Button } from "./button";
+import { useParams } from "react-router-dom";
+import { api } from "../lib/axios";
 
 interface InviteGuestsModalProps {
   closeGuestsModalt: () => void;
@@ -17,6 +19,17 @@ export function InviteGuestsModal({
   removeEmailtoInvite,
   shouldSendData,
 }: InviteGuestsModalProps) {
+  const { tripId } = useParams();
+
+  async function inviteNewGuests() {
+    await api.post(`/trips/${tripId}/invites`, {
+      name: "",
+      email: emailsToInvite,
+    });
+    console;
+    window.document.location.reload();
+  }
+
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
       <div className="w-[640px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5">
@@ -73,7 +86,7 @@ export function InviteGuestsModal({
         </form>
 
         {shouldSendData && (
-          <Button variant="primary" size="full">
+          <Button variant="primary" onClick={inviteNewGuests} size="full">
             Adicionar novos participantes
           </Button>
         )}

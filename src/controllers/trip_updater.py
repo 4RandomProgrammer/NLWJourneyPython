@@ -9,7 +9,9 @@ class TripUpdater:
 
 	def update(self, body: Dict, trip_id: str) -> Dict:
 		try:
-			self.__trips_repository.update_trip_destination_and_date(trip_id, body['destination'], body['start_date'], body['end_date'])
+			self.__trips_repository.update_trip_destination_and_date(
+				trip_id, body["destination"], body["start_date"], body["end_date"]
+			)
 
 			return {"body": None, "status_code": 204}
 		except Exception as exception:

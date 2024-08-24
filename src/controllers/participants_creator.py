@@ -16,26 +16,32 @@ class ParticipantsCreator:
 
 	def create(self, body: Dict, trip_id: str) -> Dict:
 		try:
-			participant_id = str(uuid.uuid4())
-			email_id = str(uuid.uuid4())
 
-			emails_infos = {
-				"email": body["email"],
-				"id": email_id,
-				"trip_id": trip_id,
-			}
+			emails = body["email"]
+			names = body["name"]
+			participants = []
+			for email in emails:
+				participant_id = str(uuid.uuid4())
+				email_id = str(uuid.uuid4())
 
-			participant_infos = {
-				"id": participant_id,
-				"trip_id": trip_id,
-				"emails_to_invite_id": email_id,
-				"name": body["name"],
-			}
+				emails_infos = {
+					"email": email,
+					"id": email_id,
+					"trip_id": trip_id,
+				}
 
-			self.__emails_repository.registry_email(emails_infos)
-			self.__participants_repository.registry_participants(participant_infos)
+				participant_infos = {
+					"id": participant_id,
+					"trip_id": trip_id,
+					"emails_to_invite_id": email_id,
+					"name": body["name"],
+				}
 
-			return {"body": {"participant_id": participant_id}, "status_code": 200}
+				self.__emails_repository.registry_email(emails_infos)
+				self.__participants_repository.registry_participants(participant_infos)
+				participants.append(participant_id)
+
+			return {"body": {"participant_id": participants}, "status_code": 200}
 
 		except Exception as exception:
 			return {

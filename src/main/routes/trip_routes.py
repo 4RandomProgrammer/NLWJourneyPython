@@ -63,15 +63,17 @@ def confirm_trip(tripId):
 
 	return jsonify(response["body"]), response["status_code"]
 
+
 @trip_routes_bp.route("/trips/<tripId>/update_date_and_destination", methods=["POST"])
 def update_trip_destination_and_date(tripId):
 	conn = db_connection_handler.get_connection()
 	trip_repository = TripsRepository(conn)
 	controller = TripUpdater(trip_repository)
 
-	response = controller.update(request.json,tripId)
+	response = controller.update(request.json, tripId)
 
 	return jsonify(response["body"]), response["status_code"]
+
 
 @trip_routes_bp.route("/trips/<tripId>/links", methods=["POST"])
 def create_trip_link(tripId):
