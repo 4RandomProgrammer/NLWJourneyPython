@@ -1,12 +1,13 @@
 import { AtSign, Plus, X } from "lucide-react";
 import { FormEvent } from "react";
-import { Button } from "../../components/button";
+import { Button } from "./button";
 
 interface InviteGuestsModalProps {
   closeGuestsModalt: () => void;
   emailsToInvite: string[];
   addNewEmailToInvite: (e: FormEvent<HTMLFormElement>) => void;
   removeEmailtoInvite: (emailToRemove: string) => void;
+  shouldSendData?: boolean;
 }
 
 export function InviteGuestsModal({
@@ -14,6 +15,7 @@ export function InviteGuestsModal({
   addNewEmailToInvite,
   emailsToInvite,
   removeEmailtoInvite,
+  shouldSendData,
 }: InviteGuestsModalProps) {
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
@@ -69,6 +71,12 @@ export function InviteGuestsModal({
             <Plus className="size-5 text-lime-950" />
           </Button>
         </form>
+
+        {shouldSendData && (
+          <Button variant="primary" size="full">
+            Adicionar novos participantes
+          </Button>
+        )}
       </div>
     </div>
   );

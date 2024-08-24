@@ -41,12 +41,14 @@ class TripsRepository:
 
 		self.__conn.commit()
 
-	def update_trip_destination_and_date(self, trip_id: str, destination: str, date: str) -> None:
+	def update_trip_destination_and_date(self, trip_id: str, destination: str, start_date: str, end_date: str) -> None:
 		cursor = self.__conn.cursor()
 
 		query = f"""
             UPDATE "NLWJourney".trips 
-                SET status = 1
+                SET destination = '{destination}',
+					start_date = '{start_date}',
+					end_date = '{end_date}'
             WHERE 
                 id = '{trip_id}'
         """

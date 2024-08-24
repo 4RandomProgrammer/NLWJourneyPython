@@ -10,6 +10,7 @@ from src.controllers.participants_creator import ParticipantsCreator
 from src.controllers.trip_confirmer import TripConfirmer
 from src.controllers.trip_creator import TripCreator
 from src.controllers.trip_finder import TripFinder
+from src.controllers.trip_updater import TripUpdater
 from src.models.repositories.activities_repository import ActivitiesRepository
 from src.models.repositories.emails_to_invite_repository import EmailsToInviteRepository
 from src.models.repositories.links_repository import LinksRepository
@@ -62,6 +63,15 @@ def confirm_trip(tripId):
 
 	return jsonify(response["body"]), response["status_code"]
 
+@trip_routes_bp.route("/trips/<tripId>/update_date_and_destination", methods=["POST"])
+def update_trip_destination_and_date(tripId):
+	conn = db_connection_handler.get_connection()
+	trip_repository = TripsRepository(conn)
+	controller = TripUpdater(trip_repository)
+
+	response = controller.update(request.json,tripId)
+
+	return jsonify(response["body"]), response["status_code"]
 
 @trip_routes_bp.route("/trips/<tripId>/links", methods=["POST"])
 def create_trip_link(tripId):

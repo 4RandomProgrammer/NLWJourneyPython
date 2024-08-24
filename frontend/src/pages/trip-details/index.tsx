@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { CreateActivityModal } from "./create-activity-modal";
 import { ImportantLinks } from "./important-links";
 import { Guests } from "./guests";
@@ -10,6 +10,35 @@ import { Button } from "../../components/button";
 export function TripDetailsPage() {
   const [isCreateActivityModalOpen, setIsCreateActivityModalOpen] =
     useState(false);
+
+  const [emailsToInvite, setEmailsToInvite] = useState([]);
+
+  function addNewEmailToInvite(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
+    const email = data.get("email");
+
+    if (!email) {
+      return;
+    }
+
+    if (emailsToInvite.includes(email)) {
+      return;
+    }
+
+    setEmailsToInvite([...emailsToInvite, email]);
+
+    e.currentTarget.reset();
+  }
+
+  function removeEmailtoInvite(emailToRemove: string) {
+    const newEmailList = emailsToInvite.filter(
+      (invited) => invited != emailToRemove
+    );
+
+    setEmailsToInvite(newEmailList);
+  }
 
   function openCreateActivityModal() {
     setIsCreateActivityModalOpen(true);
@@ -38,7 +67,11 @@ export function TripDetailsPage() {
 
           <div className="w-full h-px bg-zinc-800"></div>
 
-          <Guests />
+          <Guests
+            addNewEmailToInvite={addNewEmailToInvite}
+            removeEmailtoInvite={removeEmailtoInvite}
+            emailsToInvite={emailsToInvite}
+          />
         </div>
       </main>
 

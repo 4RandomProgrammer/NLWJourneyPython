@@ -1,8 +1,9 @@
 import { CheckCircle2, CircleDashed, UserCog } from "lucide-react";
 import { Button } from "../../components/button";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../lib/axios";
+import { InviteGuestsModal } from "../../components/invite-guests-modal";
 
 interface ParticipantData {
   id: string;
@@ -11,11 +12,30 @@ interface ParticipantData {
   email: string;
 }
 
-export function Guests() {
+interface GuestsProps {
+  emailsToInvite: string[];
+  addNewEmailToInvite: (e: FormEvent<HTMLFormElement>) => void;
+  removeEmailtoInvite: (emailToRemove: string) => void;
+}
+
+export function Guests({
+  emailsToInvite,
+  addNewEmailToInvite,
+  removeEmailtoInvite,
+}: GuestsProps) {
   const { tripId } = useParams();
   const [participants, setParticipants] = useState<
     ParticipantData[] | undefined
   >();
+  const [isManageGuestsModalOpen, setIsManageGuestsModalOpen] = useState(false);
+
+  function openManageGuestsModal() {
+    setIsManageGuestsModalOpen(true);
+  }
+
+  function closeManageGuestsModal() {
+    setIsManageGuestsModalOpen(false);
+  }
 
   useEffect(() => {
     api
@@ -51,10 +71,20 @@ export function Guests() {
         })}
       </div>
 
-      <Button variant="secondary" size="full">
+      <Button variant="secondary" onClick={openManageGuestsModal} size="full">
         <UserCog className="size-5" />
         Gerenciar convidados
       </Button>
+
+      {isManageGuestsModalOpen && (
+        <InviteGuestsModal
+          addNewEmailToInvite={addNewEmailToInvite}
+          closeGuestsModalt={closeManageGuestsModal}
+          emailsToInvite={emailsToInvite}
+          removeEmailtoInvite={removeEmailtoInvite}
+          shouldSendData={true}
+        />
+      )}
     </div>
   );
 }

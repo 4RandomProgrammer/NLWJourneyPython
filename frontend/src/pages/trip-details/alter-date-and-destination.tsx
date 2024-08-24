@@ -23,7 +23,8 @@ export function AlterDateAndDestinationModal({
     DateRange | undefined
   >();
 
-  function openDatePicker() {
+  function openDatePicker(e: MouseEvent) {
+    e.preventDefault();
     setIsDatePickerOpen(true);
   }
 
@@ -35,11 +36,16 @@ export function AlterDateAndDestinationModal({
     api.get(`/trips/${tripId}`).then((response) => {
       setTrip(response.data.trip);
 
-      if (trip && trip.starts_at && trip.ends_at) {
+      if (
+        response.data.trip &&
+        response.data.trip.starts_at &&
+        response.data.trip.ends_at
+      ) {
         const initialValue: DateRange = {
-          from: new Date(trip.starts_at),
-          to: new Date(trip.ends_at),
+          from: new Date(response.data.trip.starts_at),
+          to: new Date(response.data.trip.ends_at),
         };
+        setDestination(response.data.trip.destination);
         setEventStartAndEndDates(initialValue);
       }
     });
@@ -48,15 +54,24 @@ export function AlterDateAndDestinationModal({
   async function alterTrip(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const response = await api.post("/trips", {
-      tripId: tripId,
-      destination: destination,
-      start_date: eventStartAndEndDates?.to,
-      end_date: eventStartAndEndDates?.from,
-    });
+    if (!eventStartAndEndDates) {
+      return;
+    }
 
-    const { id } = response.data;
-    navigate(`/trips/${id}`);
+    if (!destination) {
+      return;
+    }
+    const response = await api.post(
+      `/trips/${tripId}/update_date_and_destination`,
+      {
+        tripId: tripId,
+        destination: destination,
+        start_date: eventStartAndEndDates.from,
+        end_date: eventStartAndEndDates.to,
+      }
+    );
+
+    window.document.location.reload();
   }
 
   const displayedDate =
@@ -100,7 +115,7 @@ export function AlterDateAndDestinationModal({
 
           <div className="h-14 p-4 bg-zinc-950 border border-zinc-800 rounded-lg flex gap-2">
             <button
-              onClick={openDatePicker}
+              onClick={(event) => openDatePicker(event)}
               className="flex items-center gap-2 text-left w-[240px]"
             >
               <Calendar className="size-5s text-zinc-400" />
