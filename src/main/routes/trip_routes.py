@@ -145,7 +145,7 @@ def find_trip_activities(tripId):
 
 
 @trip_routes_bp.route(
-	"/participants/<participantId>/participant_confirm", methods=["GET"]
+	"/participants/<participantId>/confirm", methods=["GET"]
 )
 def confirm_participant(participantId):
 	conn = db_connection_handler.get_connection()

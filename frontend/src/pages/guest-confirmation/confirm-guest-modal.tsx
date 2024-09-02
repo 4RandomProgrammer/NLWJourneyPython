@@ -1,20 +1,25 @@
 import { Mail, User, X } from "lucide-react";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import { Button } from "../../components/button";
 
-interface ConfirmTripModalProps {
+interface ConfirmGuestModalProps {
   closeConfirmParticipantModal: () => void;
   createParticipant: (e: FormEvent<HTMLFormElement>) => void;
-  setParticipantName: (onwnerName: string) => void;
-  setParticipantEmail: (onwnerEmail: string) => void;
+  setGuestName: (guestName: string) => void;
+  setGuestEmail: (guestEmail: string) => void;
 }
 
-export function ConfirmParticipantModal({
+export function ConfirmGuestModal({
   closeConfirmParticipantModal,
   createParticipant,
-  setParticipantName,
-  setParticipantEmail,
-}: ConfirmTripModalProps) {
+  setGuestName,
+  setGuestEmail,
+}: ConfirmGuestModalProps) {
+  useEffect(() => {
+    //Get trip info should be here
+    console.log("a");
+  }, []);
+
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
       <div className="w-[640px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5">
@@ -53,7 +58,7 @@ export function ConfirmParticipantModal({
               name="name"
               placeholder="Seu nome completo"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
-              onChange={(event) => setParticipantName(event.target.value)}
+              onChange={(event) => setGuestName(event.target.value)}
             />
           </div>
 
@@ -63,7 +68,7 @@ export function ConfirmParticipantModal({
               type="email"
               placeholder="Seu e-mail"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
-              onChange={(event) => setParticipantEmail(event.target.value)}
+              onChange={(event) => setGuestEmail(event.target.value)}
             />
           </div>
 
