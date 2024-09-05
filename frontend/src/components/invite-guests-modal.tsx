@@ -26,7 +26,6 @@ export function InviteGuestsModal({
       name: "",
       email: emailsToInvite,
     });
-    console;
     window.document.location.reload();
   }
 
