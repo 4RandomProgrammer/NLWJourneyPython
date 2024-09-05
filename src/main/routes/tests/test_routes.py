@@ -125,7 +125,7 @@ class TestAppRoutes:
 		all_participants = get_participants_data.get("participants")
 
 		assert all_participants[0]["name"] == participant_to_create_info["name"]
-		assert all_participants[0]["email"] == participant_to_create_info["email"]
+		assert all_participants[0]["email"] == participant_to_create_info["email"][0]
 		assert all_participants[0]["is_confirmed"] == None
 
 	def test_confirm_participant(
@@ -145,11 +145,9 @@ class TestAppRoutes:
 		assert create_participant_response.status_code == 200
 
 		create_participant_data = create_participant_response.json
-		participant_id = create_participant_data.get("participant_id")
+		participant_id = create_participant_data.get("participant_id")[0]
 
-		confirm_participant_response = client.get(
-			f"/participants/{participant_id}/participant_confirm"
-		)
+		confirm_participant_response = client.get(f"/participants/{participant_id}/confirm")
 
 		assert confirm_participant_response.status_code == 204
 		assert confirm_participant_response.data == b""
@@ -163,5 +161,5 @@ class TestAppRoutes:
 		all_participants = get_participants_data.get("participants")
 
 		assert all_participants[0]["name"] == participant_to_create_info["name"]
-		assert all_participants[0]["email"] == participant_to_create_info["email"]
+		assert all_participants[0]["email"] == participant_to_create_info["email"][0]
 		assert all_participants[0]["is_confirmed"] == 1

@@ -144,9 +144,7 @@ def find_trip_activities(tripId):
 	return jsonify(response["body"]), response["status_code"]
 
 
-@trip_routes_bp.route(
-	"/participants/<participantId>/confirm", methods=["GET"]
-)
+@trip_routes_bp.route("/participants/<participantId>/confirm", methods=["GET"])
 def confirm_participant(participantId):
 	conn = db_connection_handler.get_connection()
 	trip_repository = ParticipantsRepository(conn)

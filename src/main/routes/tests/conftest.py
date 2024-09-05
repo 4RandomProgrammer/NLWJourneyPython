@@ -30,7 +30,7 @@ def activity_to_create_info():
 
 @pytest.fixture
 def participant_to_create_info():
-	return {"email": "teste@email.com", "name": "Giocondo das Trevas"}
+	return {"email": ["teste@email.com"], "name": "Giocondo das Trevas"}
 
 
 @pytest.fixture
